@@ -1,0 +1,15 @@
+#!/usr/bin/expect -f
+
+# set first commandline argument as a variable containing
+# a storage-view name that is used to collect the LUN mapping
+# information for that storage-view
+set sv [lindex $argv 0]
+spawn ssh user@192.168.0.10
+expect "> "
+send -- "vplexcli\r"
+expect ">"
+send -- "ls -f /clusters/cluster-1/exports/storage-views/$sv\r"
+expect ">"
+send -- "exit\r"
+expect "> "
+send -- "exit\r"
